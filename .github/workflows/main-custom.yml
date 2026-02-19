@@ -58,6 +58,12 @@ on:
         required: true
         type: string
 
+      upload_artifact:
+        description: "upload as an artifact to the action (will disable draft upload)"
+        default: true
+        required: true
+        type: boolean
+
       info_note:
         description: "TIP: Learn more about integrations in the README via the link below"
         default: "https://github.com/dayanch96/YTLite#tweak-integration-details"
@@ -312,6 +318,14 @@ jobs:
           name: YouTubePlus v${{ inputs.tweak_version }} (${{ github.run_number }})
           files: YouTubePlus_${{ inputs.tweak_version }}.ipa
           draft: true
+
+      - name: upload artifact
+        if: ${{ inputs.upload_artifact }}
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: YouTubePlus_${{ inputs.tweak_version }}.ipa
+          path: YouTubePlus_${{ inputs.tweak_version }}.ipa
+          if-no-files-found: error
 
       - name: Output Release URL
         run: |
