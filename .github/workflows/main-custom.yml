@@ -315,7 +315,7 @@ jobs:
         if: ${{ inputs.enable_youloop }}
         run: |
           cd ${{ github.workspace }}/YouLoop
-          patch -u Tweak.x -i ${{ github.workspace }}/patch/youloop-import.patch
+          patch -u Tweak.x -i ${{ github.workspace }}/main/patch/youloop-import.patch
           make clean package DEBUG=0 FINALPACKAGE=1
           mv packages/*.deb ${{ github.workspace }}/yl.deb
         env:
